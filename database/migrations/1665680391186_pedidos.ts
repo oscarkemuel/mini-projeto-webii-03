@@ -1,9 +1,5 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
-
-enum StatusEnum {
-  REALIZADO,
-  CANCELADO
-}
+import { StatusEnum } from 'App/Models/Pedido'
 
 export default class extends BaseSchema {
   protected tableName = 'pedidos'
