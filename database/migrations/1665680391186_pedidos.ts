@@ -13,7 +13,7 @@ export default class extends BaseSchema {
       table.increments('id')
 
       table.integer('cliente_id').unsigned().references('id').inTable('clientes').onDelete('CASCADE')
-      table.date('dataPedido')
+      table.date('data_pedido')
       table.decimal('total')
       table.enum('status', [StatusEnum.REALIZADO, StatusEnum.CANCELADO])
     })
