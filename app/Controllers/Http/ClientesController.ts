@@ -49,4 +49,10 @@ export default class ClientesController {
 
     return cliente
   }
+
+  public async getAll({ response }: HttpContextContract) {
+    const clientes = await this.clienteService.getAll()
+
+    return response.ok(clientes)
+  }
 }

@@ -37,6 +37,12 @@ class ClienteService {
 
     return cliente
   }
+
+  public async getAll() {
+    const clientes = await Cliente.all()
+
+    return clientes
+  }
 }
 
 export default ClienteService
