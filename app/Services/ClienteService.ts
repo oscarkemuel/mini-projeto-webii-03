@@ -43,6 +43,16 @@ class ClienteService {
 
     return clientes
   }
+
+  public async getClienteByIdWithPedidos(id: number) {
+    const cliente = await Cliente.find(id)
+
+    await cliente?.load('pedidos')
+
+    if (!cliente) return null;
+
+    return cliente
+  }
 }
 
 export default ClienteService

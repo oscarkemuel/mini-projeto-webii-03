@@ -55,4 +55,16 @@ export default class ClientesController {
 
     return response.ok(clientes)
   }
+
+  public async getClienteByIdWithPedidos({ params, response }: HttpContextContract) {
+    const { id } = params
+
+    const cliente = await this.clienteService.getClienteByIdWithPedidos(id)
+
+    if (!cliente) {
+      return response.status(404).json({ message: 'Cliente não encontrado' })
+    }
+
+    return cliente
+  }
 }
