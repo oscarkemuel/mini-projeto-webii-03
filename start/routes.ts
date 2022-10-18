@@ -1,8 +1,9 @@
 import Route from '@ioc:Adonis/Core/Route'
 
-Route.get('/', async () => {
+Route.get('/api', async () => {
   return { endpoints: [
     '/clientes',
+    '/produtos'
   ] }
 })
 
@@ -20,4 +21,9 @@ Route.group(() => {
   Route.delete('/produtos/:id', 'ProdutosController.delete')
   Route.put('/produtos/:id', 'ProdutosController.update')
   Route.get('/produtos', 'ProdutosController.getAll')
+}).prefix('/api')
+
+Route.group(() => {
+  Route.get('/pedidos', 'PedidosController.getAll')
+  Route.post('/pedidos', 'PedidosController.save')
 }).prefix('/api')
