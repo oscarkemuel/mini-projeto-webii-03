@@ -1,11 +1,13 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import ProdutoService from 'App/Services/ProdutoService'
+import CreateProdutoValidator from 'App/Validators/CreateProdutoValidator'
+import UpdateAllProdutoValidator from 'App/Validators/UpdateAllProdutoValidator'
 
 export default class ProdutosController {
   public produtoService = new ProdutoService()
 
   public async save({ request, response }: HttpContextContract) {
-    const { descricao, preco } = request.all()
+    const { descricao, preco } = await request.validate(CreateProdutoValidator)
 
     const produto = await this.produtoService.save(descricao, preco)
 
@@ -14,7 +16,7 @@ export default class ProdutosController {
 
   public async update({ params, request, response }: HttpContextContract) {
     const { id } = params
-    const { descricao, preco } = request.all()
+    const { descricao, preco } = await request.validate(UpdateAllProdutoValidator)
 
     await this.produtoService.update(id, descricao, preco)
 
