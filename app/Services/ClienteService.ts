@@ -1,10 +1,11 @@
+import BadRequestException from "App/Exceptions/BadRequestException"
 import Cliente from "App/Models/Cliente"
 
 class ClienteService {
   public async getClienteById(id: number) {
-    const cliente = await Cliente.find(id)
+    const cliente = await Cliente.findBy('id', id)
 
-    if (!cliente) return null;
+    if(!cliente) throw new BadRequestException('Cliente não encontrado', 404)
 
     return cliente
   }
@@ -16,9 +17,9 @@ class ClienteService {
   }
 
   public async delete(id: number) {
-    const cliente = await Cliente.find(id)
+    const cliente = await Cliente.findBy('id', id)
 
-    if (!cliente) return null;
+    if(!cliente) throw new BadRequestException('Cliente não encontrado', 404)
 
     await cliente.delete()
 
@@ -26,9 +27,9 @@ class ClienteService {
   }
 
   public async update(id: number, nome: string, cpf: string) {
-    const cliente = await Cliente.find(id)
+    const cliente = await Cliente.findBy('id', id)
 
-    if (!cliente) return null;
+    if(!cliente) throw new BadRequestException('Cliente não encontrado', 404)
 
     cliente.nome = nome
     cliente.cpf = cpf
@@ -45,11 +46,11 @@ class ClienteService {
   }
 
   public async getClienteByIdWithPedidos(id: number) {
-    const cliente = await Cliente.find(id)
+    const cliente = await Cliente.findBy('id', id)
 
-    await cliente?.load('pedidos')
-
-    if (!cliente) return null;
+    if(!cliente) throw new BadRequestException('Cliente não encontrado', 404)
+    
+    await cliente.load('pedidos')
 
     return cliente
   }

@@ -1,3 +1,4 @@
+import BadRequestException from "App/Exceptions/BadRequestException"
 import Produto from "App/Models/Produto"
 
 class ProdutoService {
@@ -8,9 +9,9 @@ class ProdutoService {
   }
 
   async update(id: number, descricao: string, preco: number) {
-    const produto = await Produto.find(id)
+    const produto = await Produto.findBy('id', id)
 
-    if (!produto) return null;
+    if(!produto) throw new BadRequestException('Produto não encontrado', 404)
 
     produto.descricao = descricao
     produto.preco = preco
@@ -21,9 +22,9 @@ class ProdutoService {
   }
 
   async delete(id: number) {
-    const produto = await Produto.find(id)
+    const produto = await Produto.findBy('id', id)
 
-    if (!produto) return null;
+    if(!produto) throw new BadRequestException('Produto não encontrado', 404)
 
     await produto.delete()
 
@@ -31,10 +32,10 @@ class ProdutoService {
   }
 
   async getById(id: number) {
-    const produto = await Produto.find(id)
+    const produto = await Produto.findBy('id', id)
 
-    if (!produto) return null;
-
+    if(!produto) throw new BadRequestException('Produto não encontrado', 404)
+    
     return produto
   }
 
