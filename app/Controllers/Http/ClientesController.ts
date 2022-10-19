@@ -9,11 +9,7 @@ export default class ClientesController {
 
     const cliente = await this.clienteService.getClienteById(id)
 
-    if (!cliente) {
-      return response.status(404).json({ message: 'Cliente não encontrado' })
-    }
-
-    return cliente
+    return response.ok({cliente})
   }
 
   public async save({ request, response }: HttpContextContract){
@@ -21,18 +17,14 @@ export default class ClientesController {
 
     const cliente = await this.clienteService.save(nome, cpf)
 
-    return response.created(cliente)
+    return response.created({cliente})
   }
 
 
   public async delete({ params, response }: HttpContextContract) {
     const { id } = params
 
-    const cliente = await this.clienteService.delete(id)
-
-    if (!cliente) {
-      return response.status(404).json({ message: 'Cliente não encontrado' })
-    }
+    await this.clienteService.delete(id)
 
     return response.noContent()
   }
@@ -41,19 +33,15 @@ export default class ClientesController {
     const { id } = params
     const { nome, cpf } = request.all()
 
-    const cliente = await this.clienteService.update(id, nome, cpf)
+    await this.clienteService.update(id, nome, cpf)
 
-    if (!cliente) {
-      return response.status(404).json({ message: 'Cliente não encontrado' })
-    }
-
-    return cliente
+    return response.noContent()
   }
 
   public async getAll({ response }: HttpContextContract) {
     const clientes = await this.clienteService.getAll()
 
-    return response.ok(clientes)
+    return response.ok({clientes})
   }
 
   public async getClienteByIdWithPedidos({ params, response }: HttpContextContract) {
@@ -61,10 +49,6 @@ export default class ClientesController {
 
     const cliente = await this.clienteService.getClienteByIdWithPedidos(id)
 
-    if (!cliente) {
-      return response.status(404).json({ message: 'Cliente não encontrado' })
-    }
-
-    return cliente
+    return response.ok({cliente})
   }
 }

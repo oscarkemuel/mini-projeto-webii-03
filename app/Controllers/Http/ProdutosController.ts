@@ -9,30 +9,22 @@ export default class ProdutosController {
 
     const produto = await this.produtoService.save(descricao, preco)
 
-    return response.created(produto)
+    return response.created({produto})
   }
 
   public async update({ params, request, response }: HttpContextContract) {
     const { id } = params
     const { descricao, preco } = request.all()
 
-    const produto = await this.produtoService.update(id, descricao, preco)
+    await this.produtoService.update(id, descricao, preco)
 
-    if (!produto) {
-      return response.status(404).json({ message: 'Produto não encontrado' })
-    }
-
-    return produto
+    return response.noContent()
   }
 
   public async delete({ params, response }: HttpContextContract) {
     const { id } = params
 
-    const produto = await this.produtoService.delete(id)
-
-    if (!produto) {
-      return response.status(404).json({ message: 'Produto não encontrado' })
-    }
+    await this.produtoService.delete(id)
 
     return response.noContent()
   }
@@ -42,16 +34,12 @@ export default class ProdutosController {
 
     const produto = await this.produtoService.getById(id)
 
-    if (!produto) {
-      return response.status(404).json({ message: 'Produto não encontrado' })
-    }
-
-    return produto
+    return response.ok({produto})
   }
 
   public async getAll({ response }: HttpContextContract) {
     const produtos = await this.produtoService.getAll()
 
-    return response.ok(produtos)
+    return response.ok({produtos})
   }
 }
