@@ -1,6 +1,11 @@
 import BadRequestException from "App/Exceptions/BadRequestException"
 import Produto from "App/Models/Produto"
 
+interface IUpdatePartialPayload {
+  descricao?: string
+  preco?: number
+}
+
 class ProdutoService {
   async save(descricao: string, preco: number) {
     const produto = await Produto.create({ descricao, preco })
@@ -21,6 +26,17 @@ class ProdutoService {
     return produto
   }
 
+  async updatePartial(id: number, payload: IUpdatePartialPayload) {
+    const produto = await Produto.findBy('id', id)
+
+    if(!produto) throw new BadRequestException('Produto não encontrado', 404)
+
+    produto.merge(payload)
+    await produto.save()
+
+    return produto
+  }
+
   async delete(id: number) {
     const produto = await Produto.findBy('id', id)
 
@@ -35,7 +51,7 @@ class ProdutoService {
     const produto = await Produto.findBy('id', id)
 
     if(!produto) throw new BadRequestException('Produto não encontrado', 404)
-    
+
     return produto
   }
 

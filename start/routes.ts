@@ -22,9 +22,11 @@ Route.group(() => {
   Route.delete('/produtos/:id', 'ProdutosController.delete')
   Route.put('/produtos/:id', 'ProdutosController.update')
   Route.get('/produtos', 'ProdutosController.getAll')
+  Route.patch('/produtos/:id', 'ProdutosController.updatePartial')
 }).prefix('/api')
 
 Route.group(() => {
   Route.get('/pedidos', 'PedidosController.getAll')
   Route.post('/pedidos', 'PedidosController.save')
+  Route.patch('/pedidos/:id/status', 'PedidosController.updateStatus')
 }).prefix('/api')

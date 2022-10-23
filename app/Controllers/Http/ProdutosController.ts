@@ -23,6 +23,15 @@ export default class ProdutosController {
     return response.noContent()
   }
 
+  public async updatePartial({ params, request, response }: HttpContextContract) {
+    const { id } = params
+    const { descricao, preco } = request.only(['descricao', 'preco'])
+
+    await this.produtoService.updatePartial(id, {descricao, preco})
+
+    return response.noContent()
+  }
+
   public async delete({ params, response }: HttpContextContract) {
     const { id } = params
 

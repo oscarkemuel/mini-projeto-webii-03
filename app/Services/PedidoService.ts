@@ -34,7 +34,7 @@ class PedidoService {
 
     const itensCreated = await ItemPedido.createMany(itens)
 
-    return {pedido, itens: itensCreated};
+    return { pedido, itens: itensCreated };
   }
 
   async getAll() {
@@ -52,10 +52,10 @@ class PedidoService {
     return { pedidos };
   }
 
-  async updateStatus(id: number) {
+  async updateStatus(id: number, status: StatusEnum) {
     const pedido = await Pedido.findOrFail(id);
 
-    pedido.status = pedido.status === StatusEnum.REALIZADO ? StatusEnum.CANCELADO : StatusEnum.REALIZADO
+    pedido.status = status
 
     await pedido.save()
   }
