@@ -69,6 +69,14 @@ class ClienteService {
 
     await cliente.load('pedidos')
 
+    await Promise.all(cliente.pedidos.map(async pedido => {
+      await pedido.load('itens')
+
+      await Promise.all(pedido.itens.map(async item => {
+        await item.load('produto')
+      }))
+    }))
+
     return cliente
   }
 }

@@ -9,6 +9,7 @@ Route.get('/api', async () => {
 
 Route.group(() => {
   Route.get('/clientes/:id', 'ClientesController.getClienteById')
+  Route.get('/clientes/:id/details', 'ClientesController.getClienteByIdWithPedidos')
   Route.post('/clientes', 'ClientesController.save')
   Route.delete('/clientes/:id', 'ClientesController.delete')
   Route.put('/clientes/:id', 'ClientesController.update')

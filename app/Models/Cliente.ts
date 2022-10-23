@@ -13,6 +13,7 @@ export default class Cliente extends BaseModel {
 
   @hasMany(() => Pedido, {
     foreignKey: 'clienteId',
+    serializeAs: 'pedidos'
   })
   public pedidos: HasMany<typeof Pedido>
 }
