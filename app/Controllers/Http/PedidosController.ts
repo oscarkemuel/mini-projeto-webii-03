@@ -35,4 +35,13 @@ export default class PedidosController {
 
     return response.noContent();
   }
+
+  public async update({ params, request, response }: HttpContextContract) {
+    const { id } = params;
+    const payload = request.only(['clienteId', 'itens']);
+
+    await this.pedidoService.update(id, payload);
+
+    return response.noContent();
+  }
 }

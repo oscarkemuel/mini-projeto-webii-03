@@ -31,6 +31,7 @@ Route.group(() => {
   Route.post('/pedidos', 'PedidosController.save')
   Route.patch('/pedidos/:id/status', 'PedidosController.updateStatus')
   Route.delete('/pedidos/:id', 'PedidosController.delete')
+  Route.patch('/pedidos/:id', 'PedidosController.update')
 }).prefix('/api')
 
 Route.group(() => {
