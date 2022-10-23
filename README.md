@@ -18,7 +18,7 @@
 5. Iniciar o projeto com ```npm run dev``` ou ```yarn dev```
 6. Abrir o navegador em ```http://localhost:3333/```
 
-### Endpoints: 
+### Endpoints (POSTMAN JSON): 
 ```
 {
 	"info": {
