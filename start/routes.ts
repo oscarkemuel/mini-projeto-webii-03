@@ -32,3 +32,13 @@ Route.group(() => {
   Route.patch('/pedidos/:id/status', 'PedidosController.updateStatus')
   Route.delete('/pedidos/:id', 'PedidosController.delete')
 }).prefix('/api')
+
+Route.group(() => {
+  Route.get('/estoques', 'EstoquesController.index')
+  Route.post('/estoques', 'EstoquesController.create')
+  Route.delete('/estoques/:id', 'EstoquesController.destroy')
+  Route.put('/estoques/:id', 'EstoquesController.update')
+  Route.get('/estoques/:id', 'EstoquesController.show')
+  Route.get('/estoques/produtos/:descricao', 'EstoquesController.getEstoqueByProdutoDescricao')
+  Route.patch('/estoques/:id/quantidade', 'EstoquesController.updateQuantidade')
+}).prefix('/api')

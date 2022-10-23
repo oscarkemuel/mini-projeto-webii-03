@@ -1,4 +1,5 @@
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, HasOne, hasOne } from '@ioc:Adonis/Lucid/Orm'
+import Estoque from './Estoque'
 
 export default class Produto extends BaseModel {
   @column({ isPrimary: true })
@@ -9,4 +10,10 @@ export default class Produto extends BaseModel {
 
   @column()
   public preco: number
+
+  @hasOne(() => Estoque, {
+    foreignKey: 'produtoId',
+    serializeAs: 'estoque'
+  })
+  public estoque: HasOne<typeof Estoque>
 }

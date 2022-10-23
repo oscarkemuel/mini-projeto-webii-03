@@ -1,11 +1,11 @@
-import { schema, CustomMessages } from '@ioc:Adonis/Core/Validator'
+import { schema, CustomMessages, rules } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class CreatePedidoValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    clienteId: schema.number(),
+    clienteId: schema.number( [rules.exists({ table: 'clientes', column: 'id' })] ),
     total: schema.number(),
     itens: schema.array().members(schema.object().members({
         produtoId: schema.number(),
@@ -13,5 +13,7 @@ export default class CreatePedidoValidator {
     }))
   })
 
-  public messages: CustomMessages = {}
+  public messages: CustomMessages = {
+    'clienteId.exists': 'Cliente não encontrado',
+  }
 }
