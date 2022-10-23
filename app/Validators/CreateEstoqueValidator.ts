@@ -7,7 +7,7 @@ export default class CreateEstoqueValidator {
   public schema = schema.create({
     produto_id: schema.number([
       rules.exists({ table: 'produtos', column: 'id' }),
-      rules.unique({ table: 'estoques', column: 'id' })
+      rules.unique({ table: 'estoques', column: 'produto_id' })
     ]),
     quantidade: schema.number(),
   })

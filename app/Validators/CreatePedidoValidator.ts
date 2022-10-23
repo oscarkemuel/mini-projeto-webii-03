@@ -6,7 +6,6 @@ export default class CreatePedidoValidator {
 
   public schema = schema.create({
     clienteId: schema.number( [rules.exists({ table: 'clientes', column: 'id' })] ),
-    total: schema.number(),
     itens: schema.array().members(schema.object().members({
         produtoId: schema.number(),
         quantidade: schema.number(),
