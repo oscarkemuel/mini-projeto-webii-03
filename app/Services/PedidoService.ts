@@ -59,6 +59,12 @@ class PedidoService {
 
     await pedido.save()
   }
+
+  async delete(id: number) {
+    const pedido = await Pedido.findOrFail(id);
+
+    await pedido.delete()
+  }
 }
 
 export default PedidoService;

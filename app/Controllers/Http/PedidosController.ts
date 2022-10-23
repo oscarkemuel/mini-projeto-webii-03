@@ -27,4 +27,12 @@ export default class PedidosController {
 
     return response.noContent();
   }
+
+  public async delete({ params, response }: HttpContextContract) {
+    const { id } = params;
+
+    await this.pedidoService.delete(id);
+
+    return response.noContent();
+  }
 }
