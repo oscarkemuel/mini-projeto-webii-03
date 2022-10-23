@@ -40,6 +40,16 @@ export default class ClientesController {
     return response.noContent()
   }
 
+  public async updatePartial({ params, request, response }: HttpContextContract) {
+    const { id } = params
+
+    const { nome, cpf } = request.only(['nome', 'cpf'])
+
+    await this.clienteService.updatePartial(id, {nome, cpf})
+
+    return response.noContent()
+  }
+
   public async getAll({ response }: HttpContextContract) {
     const clientes = await this.clienteService.getAll()
 

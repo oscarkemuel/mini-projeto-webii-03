@@ -1,6 +1,11 @@
 import BadRequestException from "App/Exceptions/BadRequestException"
 import Cliente from "App/Models/Cliente"
 
+interface IUpdatePartialPayload {
+  nome?: string
+  cpf?: string
+}
+
 class ClienteService {
   public async getClienteById(id: number) {
     const cliente = await Cliente.findBy('id', id)
@@ -39,6 +44,18 @@ class ClienteService {
     return cliente
   }
 
+  public async updatePartial(id: number, payload: IUpdatePartialPayload) {
+    const cliente = await Cliente.findBy('id', id)
+
+    if(!cliente) throw new BadRequestException('Cliente não encontrado', 404)
+
+    cliente.merge(payload)
+
+    await cliente.save()
+
+    return cliente
+  }
+
   public async getAll() {
     const clientes = await Cliente.all()
 
@@ -49,7 +66,7 @@ class ClienteService {
     const cliente = await Cliente.findBy('id', id)
 
     if(!cliente) throw new BadRequestException('Cliente não encontrado', 404)
-    
+
     await cliente.load('pedidos')
 
     return cliente

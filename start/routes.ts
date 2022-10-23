@@ -13,6 +13,7 @@ Route.group(() => {
   Route.delete('/clientes/:id', 'ClientesController.delete')
   Route.put('/clientes/:id', 'ClientesController.update')
   Route.get('/clientes', 'ClientesController.getAll')
+  Route.patch('/clientes/:id', 'ClientesController.updatePartial')
 }).prefix('/api')
 
 Route.group(() => {

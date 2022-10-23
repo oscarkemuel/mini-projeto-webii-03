@@ -17,7 +17,7 @@ interface PedidoCreateInput {
 class PedidoService {
   async save(data: PedidoCreateInput) {
     const cliente = await Cliente.findOrFail(data.clienteId)
-    
+
     const pedido = await Pedido.create({
       clienteId: cliente.id,
       status: StatusEnum.REALIZADO,
@@ -43,11 +43,15 @@ class PedidoService {
     await Promise.all(pedidos.map(async (pedido) => {
       await pedido.load('cliente')
       await pedido.load('itens')
+
+      await Promise.all(pedido.itens.map(async (item) => {
+        await item.load('produto')
+      }))
     }))
 
-    return pedidos;
+    return { pedidos };
   }
-  
+
   async updateStatus(id: number) {
     const pedido = await Pedido.findOrFail(id);
 
